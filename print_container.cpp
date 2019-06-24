@@ -3,22 +3,6 @@
 #include <list>
 #include <vector>
 
-// std::ostream &operator<<(std::ostream &os, const std::vector<int> &vec) {
-//     auto it = vec.cbegin();
-//     os << '[' << *it++;
-//     while (it != vec.cend())
-//         std::cout << ", " << *it++;
-//     return std::cout << ']';
-// }
-
-// template <typename T>
-// std::ostream &operator<<(std::ostream &os, const std::vector<T> &vec) {
-//     auto it = vec.cbegin();
-//     os << '[' << *it++;
-//     while (it != vec.cend())
-//         std::cout << ", " << *it++;
-//     return std::cout << ']';
-// }
 
 template <typename T, typename _ = void>
 struct is_container : std::false_type {};
@@ -48,6 +32,8 @@ auto operator<<(std::ostream &os, const Container &con) ->
         os << ", " << *it++;
     return os << ']';
 }
+
+
 int main() {
     std::vector<int> vec{1, 2, 3, 4, 5};
     std::cout << "vector: " << vec << '\n';
