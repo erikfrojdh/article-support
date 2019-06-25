@@ -19,13 +19,16 @@ struct is_container<
                                decltype(std::declval<T>().begin()),
                                decltype(std::declval<T>().end()),
                                decltype(std::declval<T>().cbegin()),
-                               decltype(std::declval<T>().cend())>,
+                               decltype(std::declval<T>().cend()),
+                               decltype(std::declval<T>().empty())>,
            void>::type> : public std::true_type {};
 
 template <typename Container>
 auto operator<<(std::ostream &os, const Container &con) ->
     typename std::enable_if<is_container<Container>::value,
                             std::ostream &>::type {
+    if (con.empty())
+        return os << "[]";
     auto it = con.cbegin();
     os << '[' << *it++;
     while (it != con.cend())
@@ -35,6 +38,9 @@ auto operator<<(std::ostream &os, const Container &con) ->
 
 
 int main() {
+    std::vector<float> f;
+    std::cout << "empty vector: " << f << '\n';
+
     std::vector<int> vec{1, 2, 3, 4, 5};
     std::cout << "vector: " << vec << '\n';
     
