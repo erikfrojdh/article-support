@@ -3,7 +3,6 @@
 #include <list>
 #include <vector>
 
-
 template <typename T, typename _ = void>
 struct is_container : std::false_type {};
 
@@ -36,6 +35,7 @@ auto operator<<(std::ostream &os, const Container &con) ->
     return os << ']';
 }
 
+#ifndef _MAIN //"hack" to not include main if used for tests
 
 int main() {
     std::vector<float> f;
@@ -43,10 +43,12 @@ int main() {
 
     std::vector<int> vec{1, 2, 3, 4, 5};
     std::cout << "vector: " << vec << '\n';
-    
+
     std::list<int> ls{6, 7, 8};
     std::cout << "list: " << ls << '\n';
 
     std::array<double, 5> arr{9., 10., 11., 12., 13.};
     std::cout << "array: " << arr << '\n';
 }
+
+#endif
